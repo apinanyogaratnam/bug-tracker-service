@@ -6,10 +6,10 @@ start:
 	python3 main.py
 
 build:
-  docker build -t ${IMAGE} .
+	docker build -t ${IMAGE} .
 
 run:
-  docker run -d -p 8000:8000 ${IMAGE}
+	docker run -d -p 8000:8000 ${IMAGE}
   
 exec:
 	docker exec -it $(sha) /bin/sh
