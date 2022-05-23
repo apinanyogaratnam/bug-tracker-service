@@ -8,6 +8,8 @@ def create_app():
     app = Flask(__name__)
     api = Api(app)
 
-    api.add_resource(Root, '/')
+    VERSION = 'api/v1'
+
+    api.add_resource(Root, '/', f'/{VERSION}/')
 
     return app
