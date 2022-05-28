@@ -8,6 +8,12 @@ start:
 build:
 	docker build -t ${IMAGE} .
 
+up:
+	docker-compose up --build --remove-orphans
+
+down:
+	docker-compose down
+
 run:
 	docker run -d -p 8000:8000 ${IMAGE}
 
