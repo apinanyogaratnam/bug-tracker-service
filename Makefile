@@ -34,3 +34,6 @@ push:
 all:
 	make build && make auth && make tag && make push
 
+# script commands
+create-users:
+	python3 scripts/create_users_table.py
