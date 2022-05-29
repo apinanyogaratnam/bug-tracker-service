@@ -37,3 +37,6 @@ all:
 # script commands
 create-users:
 	python3 scripts/create_users_table.py
+
+create-projects:
+	python3 scripts/create_projects_table.py
