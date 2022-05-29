@@ -3,5 +3,6 @@
 *.env
 .env.production
 __pycache__
+.pytest_cache
 volumes
 venv

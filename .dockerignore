@@ -8,5 +8,6 @@ README.md
 .env.local
 .env.production
 __pycache__
+.pytest_cache
 volumes
 venv
