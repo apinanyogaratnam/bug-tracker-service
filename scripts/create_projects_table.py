@@ -1,4 +1,4 @@
-from scripts.utility import get_postgres_connection
+from utility import get_postgres_connection
 
 
 def main():
