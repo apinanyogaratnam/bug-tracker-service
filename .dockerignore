@@ -9,3 +9,4 @@ README.md
 .env.production
 __pycache__
 volumes
+venv
