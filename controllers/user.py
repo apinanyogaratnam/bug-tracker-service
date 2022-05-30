@@ -10,3 +10,10 @@ class Users(Resource):
 
     def get(self: 'Users') -> Response:
         return Response(response_data={}, status_code=200)
+
+    def get_user(self: 'Users', email: str) -> dict:
+        return {
+            'email': email,
+            'username': 'username',
+            'project_ids': [1, 2, 3]
+        }
