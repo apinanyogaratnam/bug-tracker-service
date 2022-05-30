@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 
-from controllers.Root import Root
+from controllers.root import Root
 
 
 def create_app():
