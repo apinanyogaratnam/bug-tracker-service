@@ -23,4 +23,4 @@ class Response:
             response_data['error'] = error
 
         response_data = json.dumps(response_data)
-        return FlaskResponse(json.dumps(response_data), status=status_code, mimetype=FORMAT_TYPE)
+        return FlaskResponse(response_data, status=status_code, mimetype=FORMAT_TYPE)
