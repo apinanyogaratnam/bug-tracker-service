@@ -6,20 +6,20 @@ from controllers.utility import BaseAPI
 
 
 class UsersController(Resource):
-    def __init__(self: 'Users', base_api: BaseAPI) -> None:
+    def __init__(self: 'UsersController', base_api: BaseAPI) -> None:
         self.base_api = base_api
 
-    def get(self: 'Users') -> Response:
+    def get(self: 'UsersController') -> Response:
         return Response(response_data={}, status_code=200)
 
-    def get_user(self: 'Users', email: str) -> dict:
+    def get_user(self: 'UsersController', email: str) -> dict:
         return {
             'email': email,
             'username': 'username',
             'project_ids': [1, 2, 3]
         }
 
-    def post(self: 'Users') -> Response:
+    def post(self: 'UsersController') -> Response:
         body: dict | list = request.get_json()
 
         is_valid_body: bool = True
@@ -29,7 +29,6 @@ class UsersController(Resource):
 
         email: str = body.get('email')
         username: str = body.get('username')
-        
 
         user = self.get_user(email)
 
