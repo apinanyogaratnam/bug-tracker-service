@@ -3,7 +3,7 @@ from flask_restful import Api
 
 from controllers.utility import BaseAPI
 from controllers.root import Root
-from controllers.user_controller import Users
+from controllers.user_controller import UsersController
 
 
 def create_app():
@@ -16,6 +16,6 @@ def create_app():
 
     api.add_resource(Root, '/', f'/{VERSION}/')
 
-    api.add_resource(Users, f'/{VERSION}/users/', resource_class_kwargs=resource)
+    api.add_resource(UsersController, f'/{VERSION}/users/', resource_class_kwargs=resource)
 
     return app

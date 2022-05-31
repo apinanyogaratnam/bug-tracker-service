@@ -5,7 +5,7 @@ from controllers.response import Response
 from controllers.utility import BaseAPI
 
 
-class Users(Resource):
+class UsersController(Resource):
     def __init__(self: 'Users', base_api: BaseAPI) -> None:
         self.base_api = base_api
 
