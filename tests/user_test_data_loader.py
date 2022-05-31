@@ -1,7 +1,7 @@
 from typing import Set
 
 from models.User import User
-from mappers.UserMapper import UserMapper
+from mappings.UserMapper import UserMapper
 
 
 class UserTestDataLoader:
