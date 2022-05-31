@@ -18,3 +18,22 @@ class Users(Resource):
             'username': 'username',
             'project_ids': [1, 2, 3]
         }
+
+    def post(self: 'Users') -> Response:
+        body: dict | list = request.get_json()
+
+        is_valid_body: bool = True
+
+        if not is_valid_body(body):
+            return Response(response_data={}, status_code=400)
+
+        email: str = body.get('email')
+        username: str = body.get('username')
+        
+
+        user = self.get_user(email)
+
+        if user:
+            return Response(response_data={}, status_code=409)
+
+        return Response(response_data={}, status_code=201)

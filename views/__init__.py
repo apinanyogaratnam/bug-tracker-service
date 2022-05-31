@@ -3,7 +3,7 @@ from flask_restful import Api
 
 from controllers.utility import BaseAPI
 from controllers.root import Root
-from controllers.user import Users
+from controllers.user_controller import Users
 
 
 def create_app():
