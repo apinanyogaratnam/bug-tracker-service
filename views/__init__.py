@@ -16,6 +16,10 @@ def create_app():
 
     api.add_resource(Root, '/', f'/{VERSION}/')
 
-    api.add_resource(UsersController, f'/{VERSION}/users', resource_class_kwargs=resource)
+    api.add_resource(
+        UsersController,
+        f'/{VERSION}/users', f'/{VERSION}/users/<string:email>',
+        resource_class_kwargs=resource
+    )
 
     return app
