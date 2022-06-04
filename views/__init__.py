@@ -12,7 +12,7 @@ def create_app():
 
     VERSION = 'api/v1'
 
-    resource = {'base_api': BaseAPI}
+    resource = {'base_api': BaseAPI()}
 
     api.add_resource(Root, '/', f'/{VERSION}/')
 
