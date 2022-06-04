@@ -70,7 +70,7 @@ class UsersController(Resource, User):
             return Response(response_data={}, error='User already exists', status_code=409)
 
         super().__init__(external_user_id, username, email)
-        user: User = self.create(email, username, external_user_id)
+        user: User = self.create()
 
         return Response(response_data=user, status_code=201)
 
