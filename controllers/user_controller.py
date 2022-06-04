@@ -12,8 +12,9 @@ class UsersController(Resource):
     def get(self: 'UsersController', email: str = None) -> Response:
         if email:
             user = self.get_user(email)
-            if user:
-                return Response(response_data=user, status_code=200)
+
+            if user: return Response(response_data=user, status_code=200)
+
             return Response(response_data={}, status_code=404)
 
         users = self.get_users()
