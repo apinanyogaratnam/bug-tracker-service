@@ -24,7 +24,7 @@ jobs:
       - name: Tag Image
         run: make tag-image
       - name: Authenticate Image Registry
-        run: $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+        run: echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
       - name: Push Image
         run: make push-image
 
