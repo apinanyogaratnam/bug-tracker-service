@@ -9,15 +9,35 @@ class UsersController(Resource):
     def __init__(self: 'UsersController', base_api: BaseAPI) -> None:
         self.base_api = base_api
 
-    def get(self: 'UsersController') -> Response:
-        return Response(response_data={}, status_code=200)
+    def get(self: 'UsersController', email: str = None) -> Response:
+        if email:
+            user = self.get_user(email)
+            if user:
+                return Response(response_data=user, status_code=200)
+            return Response(response_data={}, status_code=404)
+
+        users = self.get_users()
+        return Response(response_data=users, status_code=200)
 
     def get_user(self: 'UsersController', email: str) -> dict:
-        return {
-            'email': email,
-            'username': 'username',
-            'project_ids': [1, 2, 3]
-        }
+        query_user: str = f'''
+            SELECT
+                internal_user_id,
+                external_user_id,
+                username,
+                email,
+                project_ids,
+                created_at
+            FROM users
+            WHERE email = '{email}';
+        '''
+
+        user: dict = self.base_api.create_pandas_table(query_user).to_dict()
+
+        return user
+
+    def get_users(self: 'UsersController') -> list:
+        return list()
 
     def post(self: 'UsersController') -> Response:
         body: dict | list = request.get_json()
