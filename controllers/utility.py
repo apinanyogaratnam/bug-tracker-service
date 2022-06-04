@@ -57,4 +57,4 @@ class Utility:
             except Exception as error:
                 print(error)
                 connection.rollback()
-                raise Exception('write to postgres structured failed {}')
+                raise Exception(f'write to postgres structured failed {error}')
