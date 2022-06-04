@@ -5,7 +5,7 @@ on:
     # tags:
     #   - "v*"
 
-environment:
+env:
   CR_PAT: $CR_PAT
 
 jobs:
