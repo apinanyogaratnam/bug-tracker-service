@@ -1,11 +1,14 @@
+from typing import Tuple
+
 from flask import request
 from flask_restful import Resource
 
 from controllers.response import Response
 from controllers.utility import BaseAPI
+from models import User
 
 
-class UsersController(Resource):
+class UsersController(Resource, User):
     def __init__(self: 'UsersController', base_api: BaseAPI) -> None:
         self.base_api = base_api
 
@@ -56,17 +59,25 @@ class UsersController(Resource):
     def post(self: 'UsersController') -> Response:
         body: dict | list = request.get_json()
 
-        is_valid_body: bool = True
-
-        if not is_valid_body(body):
-            return Response(response_data={}, status_code=400)
-
-        email: str = body.get('email')
-        username: str = body.get('username')
+        try:
+            email, username, external_user_id = self.validate_body(body)
+        except ValueError as error:
+            return Response(response_data={}, error=str(error), status_code=400)
 
         user = self.get_user(email)
 
         if user:
-            return Response(response_data={}, status_code=409)
+            return Response(response_data={}, error='User already exists', status_code=409)
 
-        return Response(response_data={}, status_code=201)
+        super().__init__(external_user_id, username, email)
+        user: User = self.create(email, username, external_user_id)
+
+        return Response(response_data=user, status_code=201)
+
+    def validate_body(self: 'UsersController', body: dict) -> Tuple[str, str, str]:
+        email, username, external_user_id = body.get('email'), body.get('username'), body.get('external_user_id')
+
+        if not email or not username or not external_user_id:
+            raise ValueError('Missing required fields in body. Required Fields: email, username, external_user_id')
+
+        return email, username, external_user_id
