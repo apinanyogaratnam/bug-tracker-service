@@ -30,6 +30,9 @@ tag:
 tag-image:
 	docker tag ${IMAGE} ${REGISTRY_URL}
 
+tag-git:
+	git tag -m "v${VERSION}" v${VERSION}
+
 push:
 	docker push ${REGISTRY_URL}
 	git push --tags
