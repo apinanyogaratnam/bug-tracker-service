@@ -29,4 +29,10 @@ class UserTestDataLoader:
 
     def initialize_database(self: 'UserTestDataLoader') -> None:
         users: Set[User] = self.users()
-        pass
+
+        for user in users:
+            user.create()
+
+
+if __name__ == '__main__':
+    UserTestDataLoader().initialize_database()
