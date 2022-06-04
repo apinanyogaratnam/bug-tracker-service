@@ -1,6 +1,7 @@
 IMAGE := bug-tracker-service
 VERSION := 0.0.3
 REGISTRY_URL := ghcr.io/apinanyogaratnam/${IMAGE}:${VERSION}
+REGISTRY_URL_LATEST := ghcr.io/apinanyogaratnam/${IMAGE}:latest
 
 start:
 	python3 main.py
@@ -29,6 +30,7 @@ tag:
 
 tag-image:
 	docker tag ${IMAGE} ${REGISTRY_URL}
+	docker tag ${IMAGE} ${REGISTRY_URL_LATEST}
 
 tag-git:
 	git tag -m "v${VERSION}" v${VERSION}
@@ -39,6 +41,7 @@ push:
 
 push-image:
 	docker push ${REGISTRY_URL}
+	docker push ${REGISTRY_URL_LATEST}
 
 push-git-tag:
 	git push --tags
