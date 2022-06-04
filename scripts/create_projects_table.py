@@ -1,4 +1,4 @@
-from utility import get_postgres_connection, drop_table
+from scripts.utility import get_postgres_connection, drop_table
 
 
 def main():
