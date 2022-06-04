@@ -1,4 +1,5 @@
-from models import User
+from models import user
 
-class User(User.User):
+
+class User(user.User):
     pass
