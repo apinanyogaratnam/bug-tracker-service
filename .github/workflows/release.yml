@@ -6,7 +6,7 @@ on:
     #   - "v*"
 
 env:
-  CR_PAT: $CR_PAT
+  CR_PAT: ${{ secrets.CR_PAT }}
 
 jobs:
   build:
