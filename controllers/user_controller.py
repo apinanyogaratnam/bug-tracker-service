@@ -33,7 +33,7 @@ class UsersController(Resource):
             WHERE email = '{email}';
         '''
 
-        user: dict = self.base_api.create_pandas_table(query_user).to_dict(orient='records')
+        user: list = self.base_api.create_pandas_table(query_user).to_dict(orient='records')
 
         return user[0] if user else None
 
