@@ -47,3 +47,14 @@ class Utility:
             except Exception as error:
                 print(error)
                 connection.rollback()
+                raise Exception(f'Failed to write to database {sql_query}')
+
+    def write_to_postgres_structured(self: 'Utility', sql_query: str, records_to_insert: tuple) -> None:
+        with self.get_postgres_connection() as connection, connection.cursor() as cursor:
+            try:
+                cursor.execute(sql_query, records_to_insert)
+                connection.commit()
+            except Exception as error:
+                print(error)
+                connection.rollback()
+                raise Exception('write to postgres structured failed {}')
