@@ -50,13 +50,14 @@ class User:
                 INSERT INTO users (
                     external_user_id,
                     username,
-                    email
+                    email,
+                    project_ids
                 ) VALUES (
                     %s, %s, %s
                 ) RETURNING internal_user_id;
             '''
 
-            records_to_insert = (self.external_user_id, self.username, self.email)
+            records_to_insert = (self.external_user_id, self.username, self.email, self.project_ids)
 
         utility_handler.write_to_postgres_structured(save_user_query, records_to_insert)
 
