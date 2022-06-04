@@ -43,3 +43,6 @@ create-projects:
 
 create-tables:
 	python3 create_tables.py
+
+load-test-data:
+	python3 test_data_loader.py
