@@ -4,11 +4,11 @@ from typing import Set
 from models import Project
 
 
-class ProjectsTestDataLoader:
-    def __init__(self: 'ProjectsTestDataLoader') -> None:
+class ProjectTestDataLoader:
+    def __init__(self: 'ProjectTestDataLoader') -> None:
         pass
 
-    def projects(self: 'ProjectsTestDataLoader') -> Set[Project]:
+    def projects(self: 'ProjectTestDataLoader') -> Set[Project]:
         return set([
             Project(
                 project_id=1,
@@ -72,7 +72,7 @@ class ProjectsTestDataLoader:
             ),
         ])
 
-    def initialize_database(self: 'ProjectsTestDataLoader') -> None:
+    def initialize_database(self: 'ProjectTestDataLoader') -> None:
         projects: Set[Project] = self.projects()
 
         for project in projects:
@@ -80,4 +80,4 @@ class ProjectsTestDataLoader:
 
 
 if __name__ == '__main__':
-    ProjectsTestDataLoader().initialize_database()
+    ProjectTestDataLoader().initialize_database()

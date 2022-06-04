@@ -1,6 +1,6 @@
 from tests.user_test_data_loader import UserTestDataLoader
-from tests.projects_test_data_loader import ProjectsTestDataLoader
+from tests.project_test_data_loader import ProjectTestDataLoader
 
 
 UserTestDataLoader().initialize_database()
-ProjectsTestDataLoader().initialize_database()
+ProjectTestDataLoader().initialize_database()
