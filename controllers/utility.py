@@ -55,6 +55,5 @@ class Utility:
                 cursor.execute(sql_query, records_to_insert)
                 connection.commit()
             except Exception as error:
-                print(error)
                 connection.rollback()
                 raise Exception(f'write to postgres structured failed {error}')
