@@ -56,4 +56,4 @@ class Utility:
                 connection.commit()
             except Exception as error:
                 connection.rollback()
-                raise Exception(f'write to postgres structured failed {error}')
+                raise Exception(f'write to postgres structured failed {str(error)}')
