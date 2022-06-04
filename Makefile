@@ -27,9 +27,15 @@ tag:
 	docker tag ${IMAGE} ${REGISTRY_URL}
 	git tag -m "v${VERSION}" v${VERSION}
 
+tag-image:
+	docker tag ${IMAGE} ${REGISTRY_URL}
+
 push:
 	docker push ${REGISTRY_URL}
 	git push --tags
+
+push-image:
+	docker push ${REGISTRY_URL}
 
 all:
 	make build && make auth && make tag && make push

@@ -6,6 +6,25 @@ on:
       - "v*"
 
 jobs:
+  build:
+    name: Build Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install make
+        run: |
+          apt-get update
+          apt-get install -y make
+      - name: Build Image
+        run: make build
+      - name: Tag Image
+        run: make tag-image
+      - name: Authenticate Image Registry
+        run: $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+      - name: Push Image
+        run: make push-image
+
   release:
     name: "Release"
     runs-on: "ubuntu-latest"
