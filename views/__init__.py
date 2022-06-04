@@ -18,7 +18,7 @@ def create_app():
 
     api.add_resource(
         UsersController,
-        f'/{VERSION}/users', f'/{VERSION}/users/<string:email>',
+        f'/{VERSION}/users', f'/{VERSION}/user/<string:email>', f'/{VERSION}/user',
         resource_class_kwargs=resource
     )
 
