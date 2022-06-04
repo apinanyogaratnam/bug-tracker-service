@@ -8,7 +8,7 @@ class UserTestDataLoader:
     def __init__(self: 'UserTestDataLoader') -> None:
         pass
 
-    def users(self: 'UserTestDataLoader') -> Set[Project]:
+    def projects(self: 'UserTestDataLoader') -> Set[Project]:
         return set([
             Project(
                 project_id=1,
@@ -73,10 +73,10 @@ class UserTestDataLoader:
         ])
 
     def initialize_database(self: 'UserTestDataLoader') -> None:
-        users: Set[Project] = self.users()
+        projects: Set[Project] = self.projects()
 
-        for user in users:
-            user.create()
+        for project in projects:
+            project.create()
 
 
 if __name__ == '__main__':
