@@ -1,7 +1,6 @@
 from typing import Set
 
-from models.User import User
-from mappings.UserMapper import UserMapper
+from models import User
 
 
 class UserTestDataLoader:
@@ -30,5 +29,4 @@ class UserTestDataLoader:
 
     def initialize_database(self: 'UserTestDataLoader') -> None:
         users: Set[User] = self.users()
-        user_mapper_handler = UserMapper()
         pass
