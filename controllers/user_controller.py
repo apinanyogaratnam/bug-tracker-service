@@ -38,7 +38,20 @@ class UsersController(Resource):
         return user[0] if user else None
 
     def get_users(self: 'UsersController') -> list:
-        return list()
+        query_user: str = '''
+            SELECT
+                internal_user_id,
+                external_user_id,
+                username,
+                email,
+                project_ids,
+                EXTRACT(EPOCH FROM created_at) AS created_at
+            FROM users;
+        '''
+
+        users: list = self.base_api.create_pandas_table(query_user).to_dict(orient='records')
+
+        return users
 
     def post(self: 'UsersController') -> Response:
         body: dict | list = request.get_json()
