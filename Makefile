@@ -40,6 +40,9 @@ push:
 push-image:
 	docker push ${REGISTRY_URL}
 
+push-git-tag:
+	git push --tags
+
 all:
 	make build && make auth && make tag && make push
 
