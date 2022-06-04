@@ -1,5 +1,5 @@
 IMAGE := bug-tracker-service
-VERSION := 0.0.2
+VERSION := 0.0.3
 REGISTRY_URL := ghcr.io/apinanyogaratnam/${IMAGE}:${VERSION}
 
 start:
