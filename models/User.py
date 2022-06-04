@@ -53,7 +53,7 @@ class User:
                     email,
                     project_ids
                 ) VALUES (
-                    %s, %s, %s
+                    %s, %s, %s, %s
                 ) RETURNING internal_user_id;
             '''
 
