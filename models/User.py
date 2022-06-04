@@ -9,8 +9,8 @@ class User:
         external_user_id: str,
         username: str,
         email: str,
+        project_ids: Set[int],
         internal_user_id: int = None,
-        project_ids: Set[int] = None,
         created_at: str = None,
     ) -> None:
         self.internal_user_id = internal_user_id
