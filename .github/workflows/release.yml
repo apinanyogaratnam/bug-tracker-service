@@ -28,11 +28,12 @@ jobs:
       - name: Push Image
         run: make push-image
 
-  # release:
-  #   name: "Release"
-  #   runs-on: "ubuntu-latest"
-  #   steps:
-  #     - uses: "marvinpinto/action-automatic-releases@latest"
-  #       with:
-  #         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-  #         prerelease: false
+  release:
+    name: "Release"
+    needs: [build]
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
