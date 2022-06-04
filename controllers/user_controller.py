@@ -27,14 +27,14 @@ class UsersController(Resource):
                 username,
                 email,
                 project_ids,
-                created_at
+                EXTRACT(EPOCH FROM created_at) AS created_at
             FROM users
             WHERE email = '{email}';
         '''
 
-        user: dict = self.base_api.create_pandas_table(query_user).to_dict()
+        user: dict = self.base_api.create_pandas_table(query_user).to_dict(orient='records')
 
-        return user
+        return user[0] if user else None
 
     def get_users(self: 'UsersController') -> list:
         return list()
