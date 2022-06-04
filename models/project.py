@@ -57,7 +57,6 @@ class Project:
             self.member_ids,
             self.name,
             self.description,
-            self.created_at,
         )
 
         utility_handler.write_to_postgres_structured(save_user_query, records_to_insert)
