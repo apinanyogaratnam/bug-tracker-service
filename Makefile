@@ -40,3 +40,6 @@ create-users:
 
 create-projects:
 	python3 scripts/create_projects_table.py
+
+create-tables:
+	python3 create_tables.py
