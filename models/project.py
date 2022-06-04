@@ -45,7 +45,7 @@ class Project:
                 name,
                 description
             ) VALUES (
-                %s, %s, %s, %s, %s, %s, %s, %s
+                %s, %s, %s, %s, %s, %s, %s
             );
         '''
 
