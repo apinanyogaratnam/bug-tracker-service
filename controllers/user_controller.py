@@ -70,7 +70,7 @@ class UsersController(Resource, User):
             return Response(response_data={}, error='User already exists', status_code=409)
 
         super().__init__(external_user_id, username, email, project_ids=[])
-        user: User = self.create()
+        user: dict = self.create().jsonify()
 
         return Response(response_data=user, status_code=201)
 
