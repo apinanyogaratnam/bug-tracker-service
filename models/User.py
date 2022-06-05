@@ -41,7 +41,7 @@ class User:
                     project_ids
                 ) VALUES (
                     %s, %s, %s, %s, %s
-                );
+                ) RETURNING *;
             '''
 
             records_to_insert = (self.internal_user_id, self.external_user_id, self.username, self.email, self.project_ids)
