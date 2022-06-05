@@ -63,7 +63,8 @@ class ProjectController(Resource, Project):
                 description,
                 EXTRACT(EPOCH FROM created_at) AS created_at
             FROM projects
-            WHERE user_id = '{user_id}';
+            WHERE user_id = '{user_id}'
+            ORDER BY created_at DESC;
         '''
 
         projects: list = self.base_api.create_pandas_table(query_projects).to_dict(orient='records')
