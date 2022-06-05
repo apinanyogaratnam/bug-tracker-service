@@ -23,6 +23,11 @@ def create_app():
         resource_class_kwargs=resource
     )
 
-    api.add_resource(ProjectController, f'/{VERSION}/project/<int:project_id>', resource_class_kwargs=resource)
+    api.add_resource(
+        ProjectController,
+        f'/{VERSION}/project/<int:project_id>',
+        f'/{VERSION}/project',
+        resource_class_kwargs=resource
+    )
 
     return app
