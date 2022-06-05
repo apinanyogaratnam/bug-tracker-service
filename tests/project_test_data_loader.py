@@ -76,7 +76,7 @@ class ProjectTestDataLoader:
         projects: Set[Project] = self.projects()
 
         for project in projects:
-            project.create()
+            project.create(test_mode=True)
 
 
 if __name__ == '__main__':
