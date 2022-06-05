@@ -13,7 +13,19 @@ class ProjectController(Resource, Project):
         self.base_api = base_api
 
     def get(self: 'ProjectController', project_id: int = None) -> Response:
-        if project_id is None: return Response(response_data={}, error='project_id cannot be null', status_code=400)
+        if project_id is None:
+            user_id: int = request.args.get('user_id', type=int, default=None)
+
+            if user_id is None:
+                return Response(
+                    response_data={},
+                    error='Missing required query parameter: user_id.',
+                    message='Add a project id to the path or add a query parameter of user_id.',
+                    status_code=400
+                )
+
+            projects: list = self.get_projects(user_id)
+            return Response(response_data=projects, status_code=200)
         project = self.get_project(project_id)
 
         if project: return Response(response_data=project, status_code=200)
@@ -38,6 +50,25 @@ class ProjectController(Resource, Project):
         project: list = self.base_api.create_pandas_table(query_user).to_dict(orient='records')
 
         return project[0] if project else None
+
+    def get_projects(self: 'ProjectController', user_id: int) -> list:
+        query_projects: str = f'''
+            SELECT
+                project_id,
+                user_id,
+                administrator_id,
+                co_administrator_ids,
+                member_ids,
+                name,
+                description,
+                EXTRACT(EPOCH FROM created_at) AS created_at
+            FROM projects
+            WHERE user_id = '{user_id}';
+        '''
+
+        projects: list = self.base_api.create_pandas_table(query_projects).to_dict(orient='records')
+
+        return projects
 
     def post(self: 'ProjectController') -> Response:
         body: dict | list = request.get_json()
