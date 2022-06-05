@@ -59,7 +59,7 @@ class User:
             records_to_insert = (self.external_user_id, self.username, self.email, self.project_ids)
 
         returned_user_metadata: List[tuple] = utility_handler.write_to_postgres_structured(save_user_query, records_to_insert)
-        print(returned_user_metadata)
+
         if returned_user_metadata:
             self.internal_user_id = returned_user_metadata[0][0]
             self.created_at = returned_user_metadata[0][1].strftime('%Y-%m-%d %H:%M:%S')
