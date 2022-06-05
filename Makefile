@@ -61,3 +61,6 @@ create-tables:
 
 load-test-data:
 	python3 test_data_loader.py
+
+workflow:
+	make tag-git && make push-git-tag
