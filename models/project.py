@@ -70,7 +70,6 @@ class Project:
                     %s, %s, %s, %s, %s, %s
                 ) RETURNING project_id, created_at;
             '''
-            print(save_project_query)
 
             records_to_insert = (
                 self.user_id,
