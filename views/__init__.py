@@ -26,7 +26,7 @@ def create_app():
     api.add_resource(
         ProjectController,
         f'/{VERSION}/project/<int:project_id>',
-        f'/{VERSION}/project',
+        f'/{VERSION}/projects',
         resource_class_kwargs=resource
     )
 
