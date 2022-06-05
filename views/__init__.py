@@ -4,6 +4,7 @@ from flask_restful import Api
 from controllers.utility import BaseAPI
 from controllers.Root import Root
 from controllers.user_controller import UsersController
+from controllers.project_controller import ProjectController
 
 
 def create_app():
@@ -21,5 +22,7 @@ def create_app():
         f'/{VERSION}/users', f'/{VERSION}/user/<string:email>', f'/{VERSION}/user',
         resource_class_kwargs=resource
     )
+
+    api.add_resource(ProjectController, f'/{VERSION}/project/<int:project_id>', resource_class_kwargs=resource)
 
     return app
