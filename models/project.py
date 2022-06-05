@@ -84,7 +84,7 @@ class Project:
 
         if returned_project:
             self.project_id = returned_project[0][0]
-            self.created_at = returned_project[0][1]
+            self.created_at = returned_project[0][1].strftime('%Y-%m-%d %H:%M:%S')
 
         return self
 
