@@ -47,7 +47,7 @@ class Project:
                     description
                 ) VALUES (
                     %s, %s, %s, %s, %s, %s, %s
-                ) RETURNING *;
+                );
             '''
 
             records_to_insert = (
