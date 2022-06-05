@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from flask_restful import Api
 
 from controllers.utility import BaseAPI
@@ -10,6 +11,7 @@ from controllers.project_controller import ProjectController
 def create_app():
     app = Flask(__name__)
     api = Api(app)
+    CORS(app)
 
     VERSION = 'api/v1'
 
