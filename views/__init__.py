@@ -29,6 +29,7 @@ def create_app():
         ProjectController,
         f'/{VERSION}/project/<int:project_id>',
         f'/{VERSION}/projects',
+        f'/{VERSION}/project',
         resource_class_kwargs=resource
     )
 
