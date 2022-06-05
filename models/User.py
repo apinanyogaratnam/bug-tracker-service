@@ -62,3 +62,21 @@ class User:
         utility_handler.write_to_postgres_structured(save_user_query, records_to_insert)
 
         return self
+
+    def jsonify(self: 'User') -> dict:
+        """Returns a jsonified version of the user object
+
+        Args:
+            self (User): the user class object
+
+        Returns:
+            dict: the jsonified user object
+        """
+        return {
+            'internal_user_id': self.internal_user_id,
+            'external_user_id': self.external_user_id,
+            'username': self.username,
+            'email': self.email,
+            'project_ids': self.project_ids,
+            'created_at': self.created_at,
+        }
