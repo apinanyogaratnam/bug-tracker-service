@@ -38,7 +38,6 @@ class Project:
         if test_mode:
             save_project_query: str = '''
                 INSERT INTO projects (
-                    project_id,
                     user_id,
                     administrator_id,
                     co_administrator_ids,
@@ -46,12 +45,11 @@ class Project:
                     name,
                     description
                 ) VALUES (
-                    %s, %s, %s, %s, %s, %s, %s
+                    %s, %s, %s, %s, %s, %s
                 );
             '''
 
             records_to_insert = (
-                self.project_id,
                 self.user_id,
                 self.administrator_id,
                 self.co_administrator_ids,

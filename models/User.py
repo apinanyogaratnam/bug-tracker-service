@@ -34,17 +34,16 @@ class User:
         if test_mode:
             save_user_query: str = '''
                 INSERT INTO users (
-                    internal_user_id,
                     external_user_id,
                     username,
                     email,
                     project_ids
                 ) VALUES (
-                    %s, %s, %s, %s, %s
+                    %s, %s, %s, %s
                 );
             '''
 
-            records_to_insert = (self.internal_user_id, self.external_user_id, self.username, self.email, self.project_ids)
+            records_to_insert = (self.external_user_id, self.username, self.email, self.project_ids)
         else:
             save_user_query: str = '''
                 INSERT INTO users (
