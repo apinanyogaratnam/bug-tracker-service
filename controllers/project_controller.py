@@ -50,6 +50,9 @@ class ProjectController(Resource, Project):
         super().__init__(user_id, administrator_id=user_id, co_administrator_ids=[], member_ids=[], name=name, description=description)
         project: dict = self.create().jsonify()
 
+        # TODO: Send email to user
+        # TODO: update user's project_ids
+
         return Response(response_data=project, status_code=201)
 
     def validate_body(self: 'ProjectController', body: dict) -> Tuple[str, str, str]:
