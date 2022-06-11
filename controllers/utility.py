@@ -13,12 +13,8 @@ load_dotenv()
 class BaseAPI:
     def __init__(self: 'BaseAPI') -> None:
         self.utility_handler: Utility = Utility()
-        self.is_caching_enabled: bool = os.getenv('IS_CACHING_ENABLED', True)
-        self.redis_client = redis.Redis(
-            host=os.getenv('REDIS_HOST', 'localhost'),
-            port=os.getenv('REDIS_PORT', 6379),
-            db=0
-        )
+        self.redis_client = self.utility_handler.get_redis_client()
+        self.is_caching_enabled: bool = self.utility_handler.is_redis_connected(self.redis_client)
 
     def create_pandas_table(self: 'BaseAPI', sql_query) -> pd.DataFrame:
         with self.utility_handler.get_postgres_connection() as connection:
@@ -86,3 +82,20 @@ class Utility:
                 raise Exception(f'write to postgres structured failed {str(error)}')
 
         return data
+
+    def _ping_redis(self: 'Utility', redis_client: redis.Redis) -> bool:
+        return redis_client.ping()
+
+    def is_redis_connected(self: 'Utility', redis_client: redis.Redis) -> bool:
+        try:
+            return self._ping_redis(redis_client)
+        except Exception as error:
+            print(error)
+            return False
+
+    def get_redis_client(self: 'Utility') -> redis.Redis:
+        return redis.Redis(
+            host=os.getenv('REDIS_HOST', 'localhost'),
+            port=os.getenv('REDIS_PORT', 6379),
+            db=0,
+        )
