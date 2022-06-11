@@ -7,7 +7,7 @@ start:
 	python3 main.py
 
 build:
-	docker buildx build --platform=linux/amd64 -t ${IMAGE} .
+	docker build -t ${IMAGE} .
 
 up:
 	docker-compose up --build --remove-orphans
