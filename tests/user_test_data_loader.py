@@ -29,7 +29,7 @@ class UserTestDataLoader:
         users: Set[User] = self.users()
 
         for user in users:
-            user.create(test_mode=True)
+            user.create()
 
 
 if __name__ == '__main__':
