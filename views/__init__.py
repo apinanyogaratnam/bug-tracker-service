@@ -25,6 +25,7 @@ def create_app():
         resource_class_kwargs=resource
     )
 
+    # TODO: change to projects/<int:project_id>
     api.add_resource(
         ProjectController,
         f'/{VERSION}/project/<int:project_id>',
