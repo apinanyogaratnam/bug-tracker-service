@@ -1,4 +1,4 @@
-from typing import List, Set
+from typing import List
 
 from controllers.utility import Utility
 
@@ -9,7 +9,6 @@ class User:
         external_user_id: str,
         username: str,
         email: str,
-        project_ids: Set[int],
         internal_user_id: int = None,
         created_at: str = None,
     ) -> None:
@@ -17,7 +16,6 @@ class User:
         self.external_user_id = external_user_id
         self.username = username
         self.email = email
-        self.project_ids = project_ids
         self.created_at = created_at
 
     def create(self: 'User', test_mode: bool = False) -> 'User':
