@@ -9,6 +9,9 @@ start:
 build:
 	docker build -t ${IMAGE} .
 
+build-linux:
+	docker buildx build --platform linux/amd64 ${IMAGE} .
+
 up:
 	docker-compose up --build --remove-orphans
 
