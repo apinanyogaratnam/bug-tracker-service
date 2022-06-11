@@ -14,7 +14,6 @@ class BaseAPI:
     def __init__(self: 'BaseAPI') -> None:
         self.utility_handler: Utility = Utility()
         self.redis_client = self.utility_handler.get_redis_client()
-        self.is_caching_enabled: bool = self.utility_handler.is_redis_connected(self.redis_client)
 
     def create_pandas_table(self: 'BaseAPI', sql_query) -> pd.DataFrame:
         with self.utility_handler.get_postgres_connection() as connection:
@@ -24,13 +23,15 @@ class BaseAPI:
 
     def set_cache(self: 'BaseAPI', key: str, value: object, expiry: int | None = None) -> None:
         print('setting cache')
-        if self.is_caching_enabled:
+        is_caching_enabled = self.utility_handler.is_redis_connected(self.redis_client)
+        if is_caching_enabled:
             value = json.dumps(value)
             self.redis_client.set(key, value, expiry)
 
     def get_cache(self: 'BaseAPI', key: str) -> str | None:
         print('getting cache')
-        if self.is_caching_enabled:
+        is_caching_enabled = self.utility_handler.is_redis_connected(self.redis_client)
+        if is_caching_enabled:
             value = self.redis_client.get(key)
             value = json.loads(value)
             return value
