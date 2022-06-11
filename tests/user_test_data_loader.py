@@ -1,4 +1,4 @@
-from typing import Set
+from typing import List
 
 from models import User
 
@@ -7,8 +7,8 @@ class UserTestDataLoader:
     def __init__(self: 'UserTestDataLoader') -> None:
         pass
 
-    def users(self: 'UserTestDataLoader') -> Set[User]:
-        return set([
+    def users(self: 'UserTestDataLoader') -> List[User]:
+        return [
             User(
                 internal_user_id=1,
                 external_user_id='external_user_id',
@@ -23,10 +23,10 @@ class UserTestDataLoader:
                 email='email1',
                 created_at='created_at_1'
             ),
-        ])
+        ]
 
     def initialize_database(self: 'UserTestDataLoader') -> None:
-        users: Set[User] = self.users()
+        users: List[User] = self.users()
 
         for user in users:
             user.create()
