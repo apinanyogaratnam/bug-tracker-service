@@ -29,30 +29,17 @@ class User:
         """
         utility_handler = Utility()
 
-        if test_mode:
-            save_user_query: str = '''
-                INSERT INTO users (
-                    external_user_id,
-                    username,
-                    email
-                ) VALUES (
-                    %s, %s, %s
-                );
-            '''
+        save_user_query: str = '''
+            INSERT INTO users (
+                external_user_id,
+                username,
+                email
+            ) VALUES (
+                %s, %s, %s
+            ) RETURNING internal_user_id, created_at;
+        '''
 
-            records_to_insert = (self.external_user_id, self.username, self.email)
-        else:
-            save_user_query: str = '''
-                INSERT INTO users (
-                    external_user_id,
-                    username,
-                    email
-                ) VALUES (
-                    %s, %s, %s
-                ) RETURNING internal_user_id, created_at;
-            '''
-
-            records_to_insert = (self.external_user_id, self.username, self.email)
+        records_to_insert = (self.external_user_id, self.username, self.email)
 
         returned_user_metadata: List[tuple] = utility_handler.write_to_postgres_structured(save_user_query, records_to_insert)
 

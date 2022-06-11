@@ -35,50 +35,27 @@ class Project:
         """
         utility_handler = Utility()
 
-        if test_mode:
-            save_project_query: str = '''
-                INSERT INTO projects (
-                    user_id,
-                    administrator_id,
-                    co_administrator_ids,
-                    member_ids,
-                    name,
-                    description
-                ) VALUES (
-                    %s, %s, %s, %s, %s, %s
-                );
-            '''
+        save_project_query: str = '''
+            INSERT INTO projects (
+                user_id,
+                administrator_id,
+                co_administrator_ids,
+                member_ids,
+                name,
+                description
+            ) VALUES (
+                %s, %s, %s, %s, %s, %s
+            ) RETURNING project_id, created_at;
+        '''
 
-            records_to_insert = (
-                self.user_id,
-                self.administrator_id,
-                self.co_administrator_ids,
-                self.member_ids,
-                self.name,
-                self.description,
-            )
-        else:
-            save_project_query: str = '''
-                INSERT INTO projects (
-                    user_id,
-                    administrator_id,
-                    co_administrator_ids,
-                    member_ids,
-                    name,
-                    description
-                ) VALUES (
-                    %s, %s, %s, %s, %s, %s
-                ) RETURNING project_id, created_at;
-            '''
-
-            records_to_insert = (
-                self.user_id,
-                self.administrator_id,
-                self.co_administrator_ids,
-                self.member_ids,
-                self.name,
-                self.description,
-            )
+        records_to_insert = (
+            self.user_id,
+            self.administrator_id,
+            self.co_administrator_ids,
+            self.member_ids,
+            self.name,
+            self.description,
+        )
 
         returned_project: List[tuple] = utility_handler.write_to_postgres_structured(save_project_query, records_to_insert)
 
