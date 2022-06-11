@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Set
+from typing import List
 
 from models import Project
 
