@@ -8,8 +8,8 @@ class ProjectTestDataLoader:
     def __init__(self: 'ProjectTestDataLoader') -> None:
         pass
 
-    def projects(self: 'ProjectTestDataLoader') -> Set[Project]:
-        return set([
+    def projects(self: 'ProjectTestDataLoader') -> List[Project]:
+        return [
             Project(
                 project_id=1,
                 user_id=1,
@@ -70,10 +70,10 @@ class ProjectTestDataLoader:
                 description='The sixth test project to be created',
                 created_at=datetime.utcnow(),
             ),
-        ])
+        ]
 
     def initialize_database(self: 'ProjectTestDataLoader') -> None:
-        projects: Set[Project] = self.projects()
+        projects: List[Project] = self.projects()
 
         for project in projects:
             project.create()
