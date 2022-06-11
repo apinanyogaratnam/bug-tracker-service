@@ -7,6 +7,8 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
       - ENABLE_OVERCOMMIT_MEMORY=true
+      # - REDIS_PASSWORD=redis
+      # - REDIS_PORT=6379
     ports:
       - '6379:6379'
     volumes:
