@@ -36,10 +36,9 @@ class User:
                 INSERT INTO users (
                     external_user_id,
                     username,
-                    email,
-                    project_ids
+                    email
                 ) VALUES (
-                    %s, %s, %s, %s
+                    %s, %s, %s
                 );
             '''
 

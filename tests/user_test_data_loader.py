@@ -14,7 +14,6 @@ class UserTestDataLoader:
                 external_user_id='external_user_id',
                 username='username',
                 email='email',
-                project_ids=[1, 2, 3],
                 created_at='created_at'
             ),
             User(
@@ -22,7 +21,6 @@ class UserTestDataLoader:
                 external_user_id='external_user_id_1',
                 username='username1',
                 email='email1',
-                project_ids=[4, 5, 6],
                 created_at='created_at_1'
             ),
         ])
