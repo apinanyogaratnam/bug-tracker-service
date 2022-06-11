@@ -14,9 +14,15 @@ class UsersController(Resource, User):
 
     def get(self: 'UsersController', email: str = None) -> Response:
         if email:
+            cache_key: str = f'get_user_{email}'
+            cache_value: object = self.base_api.get_cache(cache_key)
+            if cache_value: return Response(response_data=cache_value, status_code=200)
+
             user = self.get_user(email)
 
-            if user: return Response(response_data=user, status_code=200)
+            if user:
+                self.base_api.set_cache(cache_key, user, 3600)
+                return Response(response_data=user, status_code=200)
 
             return Response(response_data={}, status_code=404)
 
