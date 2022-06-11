@@ -24,7 +24,7 @@ class Project:
         self.description = description
         self.created_at = created_at
 
-    def create(self: 'Project', test_mode: bool = False) -> 'Project':
+    def create(self: 'Project') -> 'Project':
         """Creates a new user in the database
 
         Args:

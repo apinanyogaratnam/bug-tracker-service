@@ -18,7 +18,7 @@ class User:
         self.email = email
         self.created_at = created_at
 
-    def create(self: 'User', test_mode: bool = False) -> 'User':
+    def create(self: 'User') -> 'User':
         """Creates a new user in the database
 
         Args:
