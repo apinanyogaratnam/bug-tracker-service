@@ -3,6 +3,9 @@ VERSION := 0.0.11
 REGISTRY_URL := ghcr.io/apinanyogaratnam/${IMAGE}:${VERSION}
 REGISTRY_URL_LATEST := ghcr.io/apinanyogaratnam/${IMAGE}:latest
 
+venv:
+	source venv/bin/activate
+
 start:
 	python3 main.py
 
