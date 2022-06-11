@@ -25,12 +25,7 @@ class ProjectController(Resource, Project):
                     status_code=400
                 )
 
-            cache_key: str = f'get_projects_{user_id}'
-            cache_value: object = self.base_api.get_cache(cache_key)
-            if cache_value: return Response(response_data=cache_value, status_code=200)
-
             projects: list = self.get_projects(user_id)
-            self.base_api.set_cache(cache_key, projects, 3600)
             return Response(response_data=projects, status_code=200)
         project = self.get_project(project_id)
 
