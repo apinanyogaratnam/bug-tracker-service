@@ -2,6 +2,7 @@ import os
 
 import pandas as pd
 import psycopg2
+import redis
 
 from dotenv import load_dotenv
 
@@ -11,12 +12,26 @@ load_dotenv()
 class BaseAPI:
     def __init__(self: 'BaseAPI') -> None:
         self.utility_handler: Utility = Utility()
+        self.is_caching_enabled: bool = os.getenv('IS_CACHING_ENABLED', True)
+        self.redis_client = redis.Redis(
+            host=os.getenv('REDIS_HOST', 'localhost'),
+            port=os.getenv('REDIS_PORT', 6379),
+            db=0
+        )
 
     def create_pandas_table(self: 'BaseAPI', sql_query) -> pd.DataFrame:
         with self.utility_handler.get_postgres_connection() as connection:
             table = pd.read_sql_query(sql_query, connection)
 
         return table
+
+    def set_cache(self: 'BaseAPI', key: str, value: str, expiry: int | None = None) -> None:
+        if self.is_caching_enabled:
+            self.redis_client.set(key, value, expiry)
+
+    def get_cache(self: 'BaseAPI', key: str) -> str | None:
+        if self.is_caching_enabled:
+            return self.redis_client.get(key)
 
 
 class Utility:
