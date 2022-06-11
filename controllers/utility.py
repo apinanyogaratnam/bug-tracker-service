@@ -1,3 +1,4 @@
+import json
 import os
 
 import pandas as pd
@@ -25,13 +26,18 @@ class BaseAPI:
 
         return table
 
-    def set_cache(self: 'BaseAPI', key: str, value: str, expiry: int | None = None) -> None:
+    def set_cache(self: 'BaseAPI', key: str, value: object, expiry: int | None = None) -> None:
+        print('setting cache')
         if self.is_caching_enabled:
+            value = json.dumps(value)
             self.redis_client.set(key, value, expiry)
 
     def get_cache(self: 'BaseAPI', key: str) -> str | None:
+        print('getting cache')
         if self.is_caching_enabled:
-            return self.redis_client.get(key)
+            value = self.redis_client.get(key)
+            value = json.loads(value)
+            return value
 
 
 class Utility:
