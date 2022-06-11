@@ -1,10 +1,12 @@
 import os
+import warnings
 
 from dotenv import load_dotenv
 
 from views import create_app
 
 load_dotenv()
+warnings.filterwarnings('ignore')
 app = create_app()
 
 debug = os.environ.get('ENVIRONMENT') == 'DEVELOPMENT'
