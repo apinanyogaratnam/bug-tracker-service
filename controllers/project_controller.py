@@ -14,6 +14,7 @@ class ProjectController(Resource, Project):
 
     def get(self: 'ProjectController', project_id: int = None) -> Response:
         if project_id is None:
+            # get all projects for a user
             user_id: int = request.args.get('user_id', type=int, default=None)
 
             if user_id is None:
