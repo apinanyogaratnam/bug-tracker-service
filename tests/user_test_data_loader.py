@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 
 from models import User
@@ -14,14 +15,14 @@ class UserTestDataLoader:
                 external_user_id='external_user_id',
                 username='username',
                 email='email',
-                created_at='created_at'
+                created_at=datetime.utcnow(),
             ),
             User(
                 internal_user_id=2,
                 external_user_id='external_user_id_1',
                 username='username1',
                 email='email1',
-                created_at='created_at_1'
+                created_at=datetime.utcnow(),
             ),
         ]
 
