@@ -23,7 +23,7 @@ def create_app():
     api.add_resource(
         UsersController,
         f'/{VERSION}/users', f'/{VERSION}/user/<string:email>', f'/{VERSION}/user',
-        resource_class_kwargs=resource
+        resource_class_kwargs=resource,
     )
 
     # TODO: change to projects/<int:project_id>
@@ -32,7 +32,7 @@ def create_app():
         f'/{VERSION}/project/<int:project_id>',
         f'/{VERSION}/projects',
         f'/{VERSION}/project',
-        resource_class_kwargs=resource
+        resource_class_kwargs=resource,
     )
 
     api.add_resource(
