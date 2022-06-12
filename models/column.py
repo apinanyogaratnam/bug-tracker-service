@@ -32,7 +32,7 @@ class Column:
         save_column_query: str = '''
             INSERT INTO columns (
                 project_id,
-                raw_column,
+                raw_column
             ) VALUES (
                 %s, %s
             ) RETURNING column_id, created_at;
