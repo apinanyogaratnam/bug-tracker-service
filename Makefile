@@ -3,6 +3,9 @@ VERSION := 0.0.15
 REGISTRY_URL := ghcr.io/apinanyogaratnam/${IMAGE}:${VERSION}
 REGISTRY_URL_LATEST := ghcr.io/apinanyogaratnam/${IMAGE}:latest
 
+compose-foreign-services:
+	docker-compose -f services/postgres/docker-compose.yml -f services/redis/docker-compose.yml up -d
+
 start:
 	python3 main.py
 
