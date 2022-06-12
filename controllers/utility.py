@@ -22,7 +22,6 @@ class BaseAPI:
         return table
 
     def set_cache(self: 'BaseAPI', key: str, value: object, expiry: int | None = None) -> None:
-        print('setting cache')
         is_caching_enabled = self.utility_handler.is_redis_connected(self.redis_client)
         if is_caching_enabled:
             if value is None: return
@@ -30,7 +29,6 @@ class BaseAPI:
             self.redis_client.set(key, value, expiry)
 
     def get_cache(self: 'BaseAPI', key: str) -> str | None:
-        print('getting cache')
         is_caching_enabled = self.utility_handler.is_redis_connected(self.redis_client)
         if is_caching_enabled:
             value = self.redis_client.get(key)
