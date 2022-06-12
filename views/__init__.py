@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
+from controllers.column_controller import ColumnController
 
 from controllers.utility import BaseAPI
 from controllers.Root import Root
@@ -32,6 +33,12 @@ def create_app():
         f'/{VERSION}/projects',
         f'/{VERSION}/project',
         resource_class_kwargs=resource
+    )
+
+    api.add_resource(
+        ColumnController,
+        f'/{VERSION}/columns/<int:project_id>',
+        resource_class_kwargs=resource,
     )
 
     return app
