@@ -31,6 +31,7 @@ class ProjectController(Resource, Project):
 
         if project: return Response(response_data=project, status_code=200)
 
+        # TODO: return 404 response if project is None, before returning 200 response
         return Response(response_data={}, error='Not Found', status_code=404)
 
     def get_project(self: 'ProjectController', project_id: int) -> dict:
