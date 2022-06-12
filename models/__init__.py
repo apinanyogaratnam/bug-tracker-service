@@ -1,4 +1,4 @@
-from models import user, project
+from models import user, project, column
 
 
 class User(user.User):
@@ -6,4 +6,8 @@ class User(user.User):
 
 
 class Project(project.Project):
+    pass
+
+
+class Column(column.Column):
     pass
