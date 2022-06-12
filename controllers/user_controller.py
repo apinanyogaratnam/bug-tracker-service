@@ -36,7 +36,6 @@ class UsersController(Resource, User):
                 external_user_id,
                 username,
                 email,
-                project_ids,
                 EXTRACT(EPOCH FROM created_at) AS created_at
             FROM users
             WHERE email = '{email}';
@@ -53,7 +52,6 @@ class UsersController(Resource, User):
                 external_user_id,
                 username,
                 email,
-                project_ids,
                 EXTRACT(EPOCH FROM created_at) AS created_at
             FROM users;
         '''
@@ -75,7 +73,7 @@ class UsersController(Resource, User):
         if user:
             return Response(response_data={}, error='User already exists', status_code=409)
 
-        super().__init__(external_user_id, username, email, project_ids=[])
+        super().__init__(external_user_id, username, email)
         user: dict = self.create().jsonify()
 
         return Response(response_data=user, status_code=201)

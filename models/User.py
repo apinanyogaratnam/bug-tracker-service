@@ -63,6 +63,5 @@ class User:
             'external_user_id': self.external_user_id,
             'username': self.username,
             'email': self.email,
-            'project_ids': self.project_ids,
             'created_at': self.created_at,
         }
