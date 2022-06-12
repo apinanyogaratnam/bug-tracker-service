@@ -25,6 +25,7 @@ class BaseAPI:
         print('setting cache')
         is_caching_enabled = self.utility_handler.is_redis_connected(self.redis_client)
         if is_caching_enabled:
+            if value is None: return
             value = json.dumps(value)
             self.redis_client.set(key, value, expiry)
 
@@ -33,8 +34,8 @@ class BaseAPI:
         is_caching_enabled = self.utility_handler.is_redis_connected(self.redis_client)
         if is_caching_enabled:
             value = self.redis_client.get(key)
-            value = json.loads(value)
-            return value
+            if value: return json.loads(value)
+        return None
 
 
 class Utility:
