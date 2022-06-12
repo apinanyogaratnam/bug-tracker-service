@@ -20,6 +20,7 @@ def create_app():
 
     api.add_resource(Root, '/', f'/{VERSION}/')
 
+    # TODO: rename UsersController to UserController
     api.add_resource(
         UsersController,
         f'/{VERSION}/users', f'/{VERSION}/user/<string:email>', f'/{VERSION}/user',
