@@ -1,3 +1,5 @@
+import json
+
 from typing import List
 
 from controllers.utility import Utility
@@ -38,7 +40,7 @@ class Column:
 
         records_to_insert = (
             self.project_id,
-            self.raw_column,
+            json.dumps(self.raw_column),
         )
 
         returned_project: List[tuple] = utility_handler.write_to_postgres_structured(save_column_query, records_to_insert)
