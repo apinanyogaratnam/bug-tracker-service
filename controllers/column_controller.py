@@ -1,4 +1,5 @@
 from flask_restful import Resource
+from flask import request
 
 from controllers.response import Response
 from controllers.utility import BaseAPI
@@ -9,9 +10,11 @@ class ColumnController(Resource, Column):
     def __init__(self: 'ColumnController', base_api: BaseAPI) -> None:
         self.base_api = base_api
 
-    def get(self: 'ColumnController', project_id: int) -> Response:
+    def get(self: 'ColumnController') -> Response:
+        project_id: int = request.args.get('project_id', type=int, default=None)
+
         if project_id is None:
-            return Response(response_data={}, error='Missing required query parameter: project_id.', status_code=400)
+            return Response(response_data={}, error='Expected parameter: project_id.', status_code=400)
 
         columns: list = self.get_columns(project_id)
 
