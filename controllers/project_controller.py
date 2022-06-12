@@ -84,7 +84,6 @@ class ProjectController(Resource, Project):
         project: dict = self.create().jsonify()
 
         # TODO: Send email to user
-        # TODO: update user's project_ids
 
         return Response(response_data=project, status_code=201)
 
