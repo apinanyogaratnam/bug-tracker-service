@@ -33,12 +33,12 @@ def default_raw_columns_data() -> dict:
             'items': sample_items,
         },
         'in_progress': {
-            'id': 1,
+            'id': 2,
             'name': 'In Progress',
             'items': [],
         },
         'done': {
-            'id': 1,
+            'id': 3,
             'name': 'Done',
             'items': [],
         },
