@@ -71,6 +71,8 @@ class ProjectController(Resource, Project):
 
         projects: list = self.base_api.create_pandas_table(query_projects).to_dict(orient='records')
 
+        # TODO: create instances of Project class
+
         return projects
 
     def post(self: 'ProjectController') -> Response:
