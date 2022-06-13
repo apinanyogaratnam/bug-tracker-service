@@ -64,25 +64,25 @@ class ColumnController(Resource, Column):
     def put(self: 'ColumnController', column_id: int) -> Response:
         body: dict | list = request.get_json()
 
-        column_name, items = self.validate_body(body)
+        column_name = self.validate_body(body)
 
         column: Column = self.get_column(column_id)
 
         raw_columns: dict = column.raw_columns
         new_column_id: int = column.get_last_column_id() + 1
-        raw_columns[new_column_id] = {'name': column_name, 'items': items}
+        raw_columns[new_column_id] = {'name': column_name, 'items': []}
 
         # TODO: column.update(raw_columns)
 
         return Response(response_data={}, error='Not Implemented', status_code=501)
 
     def validate_body(self: 'ColumnController', body: dict) -> Tuple[str, str]:
-        column_name, items = body.get('column_name'), body.get('items')
+        column_name: str = body.get('column_name')
 
-        if not column_name or not items:
-            raise ValueError('Missing required fields in body. Required fields: column_name, items.')
+        if not column_name:
+            raise ValueError('Missing required fields in body. Required fields: column_name.')
 
-        return column_name, items
+        return column_name
 
     def get_column(self: 'ColumnController', column_id: int) -> Column:
         query_user: str = f'''
