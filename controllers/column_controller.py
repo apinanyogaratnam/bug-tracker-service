@@ -34,8 +34,11 @@ class ColumnController(Resource, Column):
             WHERE project_id = '{project_id}';
         '''
 
-        columns: list = self.base_api.create_pandas_table(query_user).to_dict(orient='records')
+        queried_columns: list = self.base_api.create_pandas_table(query_user).to_dict(orient='records')
 
+        columns: list = []
+        for column in queried_columns:
+            columns.append(Column(**column).jsonify())
         return columns
 
     # def post(self: 'ColumnController') -> Response:
