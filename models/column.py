@@ -18,6 +18,8 @@ class Column:
         self.raw_columns = raw_columns
         self.created_at = created_at
 
+        self.order_raw_columns()
+
     def create(self: 'Column') -> 'Column':
         """Creates a new column in the database
 
@@ -66,3 +68,13 @@ class Column:
             'raw_columns': self.raw_columns,
             'created_at': self.created_at
         }
+
+    def order_raw_columns(self: 'Column') -> None:
+        """Orders the raw columns in the column class object
+
+        Args:
+            self (Column): the column class object
+        """
+        columns: dict = self.raw_columns
+        sorted_columns: dict = dict(sorted(columns.items(), key=lambda x: x[1]['id']), reverse=True)
+        self.raw_columns = sorted_columns
