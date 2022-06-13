@@ -25,6 +25,6 @@ def get_postgres_connection() -> psycopg2.connect:
 
 def drop_table(table_name: str, connection: psycopg2.connect) -> None:
     with connection.cursor() as cursor:
-        drop_table_query: str = f'DROP TABLE IF EXISTS {table_name}'
+        drop_table_query: str = f'DROP TABLE IF EXISTS {table_name} CASCADE'
         cursor.execute(drop_table_query)
         connection.commit()
