@@ -39,9 +39,7 @@ class ColumnController(Resource, Column):
 
         queried_columns: list = self.base_api.create_pandas_table(query_user).to_dict(orient='records')
 
-        columns: list = []
-        for column in queried_columns:
-            columns.append(Column(**column))
+        columns: list = list(map(lambda column: Column(**column), queried_columns))
         return columns
 
     def jsonify_columns(self: 'ColumnController', columns: List[Column]) -> List[dict]:
