@@ -19,12 +19,12 @@ class ColumnController(Resource, Column):
             return Response(response_data={}, error='Expected parameter: project_id.', status_code=400)
 
         columns: List[Column] = self.get_columns(project_id)
-        columns: List[Column] = [column.jsonify() for column in columns]
+        serialized_columns: List[dict] = self.jsonify_columns(columns)
 
         if columns is None:
             return Response(response_data={}, error='Not Found', status_code=404)
 
-        return Response(response_data=columns, status_code=200)
+        return Response(response_data=serialized_columns, status_code=200)
 
     def get_columns(self: 'ColumnController', project_id: int) -> List[Column]:
         query_user: str = f'''
@@ -43,6 +43,9 @@ class ColumnController(Resource, Column):
         for column in queried_columns:
             columns.append(Column(**column))
         return columns
+
+    def jsonify_columns(self: 'ColumnController', columns: List[Column]) -> List[dict]:
+        return [column.jsonify() for column in columns]
 
     # def post(self: 'ColumnController') -> Response:
     #     body: dict | list = request.get_json()
