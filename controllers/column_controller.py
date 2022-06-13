@@ -1,4 +1,5 @@
 from typing import List, Tuple
+from uuid import uuid4
 
 from flask_restful import Resource
 from flask import request
@@ -60,7 +61,14 @@ class ColumnController(Resource, Column):
 
         return Response(response_data=serialized_columns, status_code=201)
 
-    # TODO: create put method
+    def put(self: 'ColumnController', column_id: int) -> Response:
+        body: dict | list = request.get_json()
+
+        column: Column = self.get_column(column_id)
+
+        generated_key: str = str(uuid4())
+
+        return Response(response_data={}, error='Not Implemented', status_code=501)
 
     def validate_body(self: 'ColumnController', body: dict) -> Tuple[str, str]:
         project_id, raw_columns = body.get('project_id'), body.get('raw_columns')
