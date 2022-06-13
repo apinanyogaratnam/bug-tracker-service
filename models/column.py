@@ -45,11 +45,11 @@ class Column:
             json.dumps(self.raw_columns),
         )
 
-        returned_project: List[tuple] = utility_handler.write_to_postgres_structured(save_column_query, records_to_insert)
+        returned_column: List[tuple] = utility_handler.write_to_postgres_structured(save_column_query, records_to_insert)
 
-        if returned_project:
-            self.column_id = returned_project[0][0]
-            self.created_at = returned_project[0][1].strftime('%Y-%m-%d %H:%M:%S')
+        if returned_column:
+            self.column_id = returned_column[0][0]
+            self.created_at = returned_column[0][1].strftime('%Y-%m-%d %H:%M:%S')
 
         return self
 
