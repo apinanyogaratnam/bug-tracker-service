@@ -39,7 +39,7 @@ def create_app():
     api.add_resource(
         ColumnController,
         f'/{VERSION}/columns',
-        f'/{VERSION}/column/<int:project_id>',
+        f'/{VERSION}/column',
         resource_class_kwargs=resource,
     )
 
