@@ -1,5 +1,5 @@
 IMAGE := bug-tracker-service
-VERSION := 0.0.16
+VERSION := 0.0.17
 REGISTRY_URL := ghcr.io/apinanyogaratnam/${IMAGE}:${VERSION}
 REGISTRY_URL_LATEST := ghcr.io/apinanyogaratnam/${IMAGE}:latest
 
