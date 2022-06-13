@@ -78,3 +78,17 @@ class Column:
         columns: dict = self.raw_columns
         sorted_columns: dict = dict(sorted(columns.items(), key=lambda x: x[1]['id'], reverse=True))
         self.raw_columns = sorted_columns
+
+    def get_last_column_id(self: 'Column') -> int:
+        """Gets the last column id from raw_columns
+
+        Args:
+            self (Column): the column class object
+
+        Raises:
+            ValueError: if raw_columns is empty
+
+        Returns:
+            int: the last column id
+        """
+        return(max(self.raw_columns.keys()))
