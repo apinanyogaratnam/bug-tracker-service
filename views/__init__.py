@@ -40,6 +40,7 @@ def create_app():
         ColumnController,
         f'/{VERSION}/columns',
         f'/{VERSION}/column',
+        f'/{VERSION}/column/<int:column_id>',
         resource_class_kwargs=resource,
     )
 
