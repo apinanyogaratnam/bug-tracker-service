@@ -1,5 +1,9 @@
 *.log
 .env.local
+.env.test
+.env.prod
+.env.production
+.env.development
 *.env
 .env.production
 __pycache__
