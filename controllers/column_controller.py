@@ -1,3 +1,5 @@
+from typing import List
+
 from flask_restful import Resource
 from flask import request
 
@@ -16,14 +18,15 @@ class ColumnController(Resource, Column):
         if project_id is None:
             return Response(response_data={}, error='Expected parameter: project_id.', status_code=400)
 
-        columns: list = self.get_columns(project_id)
+        columns: List[Column] = self.get_columns(project_id)
+        columns: List[Column] = [column.jsonify() for column in columns]
 
         if columns is None:
             return Response(response_data={}, error='Not Found', status_code=404)
 
         return Response(response_data=columns, status_code=200)
 
-    def get_columns(self: 'ColumnController', project_id: int) -> list | None:
+    def get_columns(self: 'ColumnController', project_id: int) -> List[Column]:
         query_user: str = f'''
             SELECT
                 column_id,
@@ -38,7 +41,7 @@ class ColumnController(Resource, Column):
 
         columns: list = []
         for column in queried_columns:
-            columns.append(Column(**column).jsonify())
+            columns.append(Column(**column))
         return columns
 
     # def post(self: 'ColumnController') -> Response:
