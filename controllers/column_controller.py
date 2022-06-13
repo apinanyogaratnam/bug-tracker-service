@@ -47,11 +47,11 @@ class ColumnController(Resource, Column):
     def jsonify_columns(self: 'ColumnController', columns: List[Column]) -> List[dict]:
         return [column.jsonify() for column in columns]
 
-    def post(self: 'ColumnController', column_id: int) -> Response:
+    def post(self: 'ColumnController', project_id: int) -> Response:
         body: dict | list = request.get_json()
 
         try:
-            project_id, raw_columns = self.validate_body(body)
+            raw_columns = self.validate_body(body)
         except ValueError as error:
             return Response(response_data={}, error=str(error), status_code=400)
 
