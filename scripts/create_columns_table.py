@@ -28,14 +28,17 @@ def default_raw_columns_data() -> dict:
 
     return {
         'to_do': {
+            'id': 1,
             'name': 'Todo',
             'items': sample_items,
         },
         'in_progress': {
+            'id': 1,
             'name': 'In Progress',
             'items': [],
         },
         'done': {
+            'id': 1,
             'name': 'Done',
             'items': [],
         },
