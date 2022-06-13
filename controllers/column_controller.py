@@ -47,8 +47,10 @@ class ColumnController(Resource, Column):
     def jsonify_columns(self: 'ColumnController', columns: List[Column]) -> List[dict]:
         return [column.jsonify() for column in columns]
 
-    # def post(self: 'ColumnController') -> Response:
+    # def post(self: 'ColumnController', column_id: int) -> Response:
     #     body: dict | list = request.get_json()
+
+    #     column: Column = self.get_column(column_id)
 
     #     try:
     #         user_id, name, description = self.validate_body(body)
@@ -68,3 +70,22 @@ class ColumnController(Resource, Column):
     #         raise ValueError('Missing required fields in body. Required fields: user_id, name, description')
 
     #     return user_id, name, description
+
+    def get_column(self: 'ColumnController', column_id: int) -> Column:
+        query_user: str = f'''
+            SELECT
+                column_id,
+                project_id,
+                raw_columns,
+                EXTRACT(EPOCH FROM created_at) AS created_at
+            FROM columns
+            WHERE column_id = '{column_id}'
+            LIMIT 1;
+        '''
+
+        queried_columns: list = self.base_api.create_pandas_table(query_user).to_dict(orient='records')
+
+        if len(queried_columns) == 0:
+            raise ValueError('Not Found')
+
+        return Column(**queried_columns[0])
