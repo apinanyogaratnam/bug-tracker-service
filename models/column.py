@@ -8,9 +8,9 @@ from controllers.utility import Utility
 class Column:
     def __init__(
         self: 'Column',
-        column_id: int,
         project_id: int,
         raw_columns: dict,
+        column_id: int | None = None,
         created_at: str | None = None,
     ) -> None:
         self.column_id = column_id
