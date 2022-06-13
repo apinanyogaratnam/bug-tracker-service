@@ -76,7 +76,7 @@ class Column:
             self (Column): the column class object
         """
         columns: dict = self.raw_columns
-        sorted_columns: dict = dict(sorted(columns.items(), key=lambda x: int(x[0]), reverse=True))
+        sorted_columns: dict = dict(sorted(columns.items(), key=lambda x: int(x[0]), reverse=False))
         self.raw_columns = sorted_columns
 
     def get_last_column_id(self: 'Column') -> int:
