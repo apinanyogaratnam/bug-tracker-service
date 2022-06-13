@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List
 
 from models import Column
-from scripts.create_columns_table import default_raw_column_data
+from scripts.create_columns_table import default_raw_columns_data
 
 
 class ColumnTestDataLoader:
@@ -14,19 +14,19 @@ class ColumnTestDataLoader:
             Column(
                 column_id=1,
                 project_id=1,
-                raw_column=default_raw_column_data(),
+                raw_columns=default_raw_columns_data(),
                 created_at=datetime.utcnow(),
             ),
             Column(
                 column_id=2,
                 project_id=2,
-                raw_column=default_raw_column_data(),
+                raw_columns=default_raw_columns_data(),
                 created_at=datetime.utcnow(),
             ),
             Column(
                 column_id=3,
                 project_id=3,
-                raw_column=default_raw_column_data(),
+                raw_columns=default_raw_columns_data(),
                 created_at=datetime.utcnow(),
             ),
         ]

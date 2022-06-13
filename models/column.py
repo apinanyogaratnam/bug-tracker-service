@@ -10,12 +10,12 @@ class Column:
         self: 'Column',
         column_id: int,
         project_id: int,
-        raw_column: dict,
+        raw_columns: dict,
         created_at: str | None = None,
     ) -> None:
         self.column_id = column_id
         self.project_id = project_id
-        self.raw_column = raw_column
+        self.raw_columns = raw_columns
         self.created_at = created_at
 
     def create(self: 'Column') -> 'Column':
@@ -32,7 +32,7 @@ class Column:
         save_column_query: str = '''
             INSERT INTO columns (
                 project_id,
-                raw_column
+                raw_columns
             ) VALUES (
                 %s, %s
             ) RETURNING column_id, created_at;
@@ -40,7 +40,7 @@ class Column:
 
         records_to_insert = (
             self.project_id,
-            json.dumps(self.raw_column),
+            json.dumps(self.raw_columns),
         )
 
         returned_project: List[tuple] = utility_handler.write_to_postgres_structured(save_column_query, records_to_insert)
@@ -63,6 +63,6 @@ class Column:
         return {
             'column_id': self.column_id,
             'project_id': self.project_id,
-            'raw_column': self.raw_column,
+            'raw_columns': self.raw_columns,
             'created_at': self.created_at
         }
