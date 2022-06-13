@@ -64,16 +64,41 @@ class ColumnController(Resource, Column):
     def put(self: 'ColumnController', column_id: int) -> Response:
         body: dict | list = request.get_json()
 
+        column_name, items = self.validate_body(body)
+
         column: Column = self.get_column(column_id)
 
-        generated_key: str = str(uuid4())
+        raw_columns: dict = column.raw_columns
+        new_column_id: int = column.get_last_column_id() + 1
+        raw_columns[new_column_id] = {'name': column_name, 'items': items}
+
+        # TODO: column.update(raw_columns)
 
         return Response(response_data={}, error='Not Implemented', status_code=501)
 
     def validate_body(self: 'ColumnController', body: dict) -> Tuple[str, str]:
-        project_id, raw_columns = body.get('project_id'), body.get('raw_columns')
+        column_name, items = body.get('column_name'), body.get('items')
 
-        if not project_id or not raw_columns:
-            raise ValueError('Missing required fields in body. Required fields: project_id, raw_columns.')
+        if not column_name or not items:
+            raise ValueError('Missing required fields in body. Required fields: column_name, items.')
 
-        return project_id, raw_columns
+        return column_name, items
+
+    def get_column(self: 'ColumnController', column_id: int) -> Column:
+        query_user: str = f'''
+            SELECT
+                column_id,
+                project_id,
+                raw_columns,
+                EXTRACT(EPOCH FROM created_at) AS created_at
+            FROM columns
+            WHERE column_id = '{column_id}'
+            LIMIT 1;
+        '''
+
+        queried_columns: list = self.base_api.create_pandas_table(query_user).to_dict(orient='records')
+
+        if len(queried_columns) == 0:
+            raise ValueError('Not Found')
+
+        return Column(**queried_columns[0])
