@@ -73,9 +73,9 @@ class ColumnController(Resource, Column):
         new_column_id: int = column.get_last_column_id() + 1
         raw_columns[new_column_id] = {'name': column_name, 'items': []}
 
-        # TODO: column.update(raw_columns)
+        serialized_columns = column.update(raw_columns).jsonify()
 
-        return Response(response_data={}, error='Not Implemented', status_code=501)
+        return Response(response_data=serialized_columns, status_code=204)
 
     def validate_body(self: 'ColumnController', body: dict) -> Tuple[str, str]:
         column_name: str = body.get('column_name')
