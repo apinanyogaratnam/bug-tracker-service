@@ -15,6 +15,7 @@ class BaseAPI:
         self.utility_handler: Utility = Utility()
         self.redis_client = self.utility_handler.get_redis_client()
 
+    # TODO: inherit from utility class
     def create_pandas_table(self: 'BaseAPI', sql_query) -> pd.DataFrame:
         with self.utility_handler.get_postgres_connection() as connection:
             table = pd.read_sql_query(sql_query, connection)
@@ -100,3 +101,9 @@ class Utility:
             password=os.getenv('REDIS_PASSWORD', None),
             db=0,
         )
+
+    def create_pandas_table(self: 'BaseAPI', sql_query) -> pd.DataFrame:
+        with self.utility_handler.get_postgres_connection() as connection:
+            table = pd.read_sql_query(sql_query, connection)
+
+        return table
