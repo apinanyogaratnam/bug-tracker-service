@@ -27,6 +27,7 @@ class ColumnController(Resource, Column):
 
         return Response(response_data=serialized_columns, status_code=200)
 
+    # TODO: use project method instead
     def get_columns(self: 'ColumnController', project_id: int) -> List[Column]:
         query_user: str = f'''
             SELECT
