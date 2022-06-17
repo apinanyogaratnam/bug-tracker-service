@@ -44,6 +44,4 @@ def create_app():
         resource_class_kwargs=resource,
     )
 
-    # TODO: create endpoint for adding a new card to a column
-
     return app
