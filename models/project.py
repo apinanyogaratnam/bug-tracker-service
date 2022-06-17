@@ -1,6 +1,7 @@
 from typing import List, Set
 
 from controllers.utility import Utility
+from models import Column
 
 
 class Project:
@@ -84,3 +85,21 @@ class Project:
             'description': self.description,
             'created_at': self.created_at
         }
+
+    def get_columns(self: 'Project', project_id: int) -> List[Column]:
+        query_user: str = f'''
+            SELECT
+                column_id,
+                project_id,
+                raw_columns,
+                EXTRACT(EPOCH FROM created_at) AS created_at
+            FROM columns
+            WHERE project_id = '{project_id}';
+        '''
+
+        utility_handler = Utility()
+
+        queried_columns: list = utility_handler.create_pandas_table(query_user).to_dict(orient='records')
+
+        columns: list = list(map(lambda column: Column(**column), queried_columns))
+        return columns
