@@ -1,7 +1,7 @@
 from typing import List, Set
 
 from controllers.utility import Utility
-from models import Column
+from models.column import Column
 
 
 class Project:
