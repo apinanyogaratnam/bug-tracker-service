@@ -63,22 +63,25 @@ class ColumnController(Resource, Column):
         return Response(response_data=serialized_columns, status_code=201)
 
     # TODO: implement delete method
-    def put(self: 'ColumnController', column_id: int) -> Response:
+    def put(self: 'ColumnController', column_id: int, column_column_id: int | None) -> Response:
         body: dict | list = request.get_json()
 
-        column_name = self.validate_body(body)
+        if column_column_id is None:
+            column_name = self.validate_body(body)
 
-        try:
-            column: Column = self.get_column(column_id)
-        except ValueError as error:
-            return Response(response_data={}, error=str(error), status_code=404)
+            try:
+                column: Column = self.get_column(column_id)
+            except ValueError as error:
+                return Response(response_data={}, error=str(error), status_code=404)
 
-        raw_columns: dict = column.raw_columns
-        new_column_id: int = column.get_last_column_id() + 1
-        raw_columns[str(new_column_id)] = {'name': column_name, 'items': []}
+            raw_columns: dict = column.raw_columns
+            new_column_id: int = column.get_last_column_id() + 1
+            raw_columns[str(new_column_id)] = {'name': column_name, 'items': []}
 
-        serialized_columns = column.update(raw_columns).jsonify()
-        return Response(response_data=serialized_columns, status_code=201)
+            serialized_columns = column.update(raw_columns).jsonify()
+            return Response(response_data=serialized_columns, status_code=201)
+        else:
+            return Response(response_data={}, error='Not Implemented', status_code=501)
 
     def validate_body(self: 'ColumnController', body: dict) -> Tuple[str, str]:
         column_name: str = body.get('column_name')
