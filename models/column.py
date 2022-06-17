@@ -53,6 +53,26 @@ class Column:
 
         return self
 
+    def update(self: 'Column', raw_columns: dict) -> 'Column':
+        utility_handler = Utility()
+
+        update_column_query: str = '''
+            UPDATE columns
+            SET raw_columns = %s
+            WHERE column_id = %s;
+        '''
+
+        records_to_update = (
+            json.dumps(raw_columns),
+            self.column_id,
+        )
+
+        utility_handler.write_to_postgres_structured(update_column_query, records_to_update)
+
+        self.raw_columns = raw_columns
+
+        return self
+
     def jsonify(self: 'Column') -> dict:
         """Converts the column class object to a dictionary
 
@@ -91,4 +111,5 @@ class Column:
         Returns:
             int: the last column id
         """
-        return(max(self.raw_columns.keys()))
+        raw_column_keys: list = [int(item) for item in self.raw_columns.keys()]
+        return max(raw_column_keys)
