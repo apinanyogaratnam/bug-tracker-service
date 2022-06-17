@@ -92,6 +92,32 @@ class ColumnController(Resource, Column):
 
             return Response(response_data=serialized_columns, status_code=201)
 
+    def delete(self: 'ColumnController', column_id: int, column_column_id: int | None) -> Response:
+        body: dict | list = request.get_json()
+
+        if column_column_id is None:
+            try:
+                column: Column = self.get_column(column_id)
+            except ValueError as error:
+                return Response(response_data={}, error=str(error), status_code=404)
+
+            raw_columns: dict = column.raw_columns
+            raw_columns.pop(str(column_id))
+
+            serialized_columns = column.update(raw_columns).jsonify()
+            return Response(response_data=serialized_columns, status_code=200)
+        else:
+            item_index: int = self.validate_remove_item_body(body)
+
+            column: Column = self.get_column(column_id)
+
+            raw_columns: dict = column.raw_columns
+            raw_columns[str(column_column_id)]['items'].pop(item_index)
+
+            serialized_columns = column.update(raw_columns).jsonify()
+
+            return Response(response_data=serialized_columns, status_code=200)
+
     def validate_body(self: 'ColumnController', body: dict) -> Tuple[str, str]:
         column_name: str = body.get('column_name')
 
@@ -110,6 +136,14 @@ class ColumnController(Resource, Column):
             raise ValueError('Missing required fields in body. Required fields: description.')
 
         return name, description
+
+    def validate_remove_item_body(self: 'ColumnController', body: dict) -> int:
+        item_index: int = body.get('item_index')
+
+        if item_index is None:
+            raise ValueError('Missing required fields in body. Required fields: item_index.')
+
+        return item_index
 
     def get_column(self: 'ColumnController', column_id: int) -> Column:
         query_user: str = f'''
