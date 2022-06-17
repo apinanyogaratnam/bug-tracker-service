@@ -61,7 +61,7 @@ class ColumnController(Resource, Column):
 
         return Response(response_data=serialized_columns, status_code=201)
 
-    # TODO: implement this and delete method
+    # TODO: implement delete method
     def put(self: 'ColumnController', column_id: int) -> Response:
         body: dict | list = request.get_json()
 
