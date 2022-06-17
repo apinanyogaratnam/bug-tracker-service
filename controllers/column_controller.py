@@ -81,7 +81,16 @@ class ColumnController(Resource, Column):
             serialized_columns = column.update(raw_columns).jsonify()
             return Response(response_data=serialized_columns, status_code=201)
         else:
-            return Response(response_data={}, error='Not Implemented', status_code=501)
+            name, description = self.validate_add_item_body(body)
+
+            column: Column = self.get_column(column_id)
+
+            raw_columns: dict = column.raw_columns
+            raw_columns[str(column_column_id)]['items'].append({'name': name, 'description': description})
+
+            serialized_columns = column.update(raw_columns).jsonify()
+
+            return Response(response_data=serialized_columns, status_code=201)
 
     def validate_body(self: 'ColumnController', body: dict) -> Tuple[str, str]:
         column_name: str = body.get('column_name')
@@ -90,6 +99,17 @@ class ColumnController(Resource, Column):
             raise ValueError('Missing required fields in body. Required fields: column_name.')
 
         return column_name
+
+    def validate_add_item_body(self: 'ColumnController', body: dict) -> Tuple[str, str]:
+        name, description = body.get('name'), body.get('description')
+
+        if name is None:
+            raise ValueError('Missing required fields in body. Required fields: name.')
+
+        if description is None:
+            raise ValueError('Missing required fields in body. Required fields: description.')
+
+        return name, description
 
     def get_column(self: 'ColumnController', column_id: int) -> Column:
         query_user: str = f'''
