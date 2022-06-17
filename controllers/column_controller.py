@@ -67,15 +67,17 @@ class ColumnController(Resource, Column):
 
         column_name = self.validate_body(body)
 
-        column: Column = self.get_column(column_id)
+        try:
+            column: Column = self.get_column(column_id)
+        except ValueError as error:
+            return Response(response_data={}, error=str(error), status_code=404)
 
         raw_columns: dict = column.raw_columns
         new_column_id: int = column.get_last_column_id() + 1
-        raw_columns[new_column_id] = {'name': column_name, 'items': []}
+        raw_columns[str(new_column_id)] = {'name': column_name, 'items': []}
 
         serialized_columns = column.update(raw_columns).jsonify()
-
-        return Response(response_data=serialized_columns, status_code=204)
+        return Response(response_data=serialized_columns, status_code=201)
 
     def validate_body(self: 'ColumnController', body: dict) -> Tuple[str, str]:
         column_name: str = body.get('column_name')
