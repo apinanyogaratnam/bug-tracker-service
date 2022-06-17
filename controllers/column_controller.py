@@ -1,5 +1,4 @@
 from typing import List, Tuple
-from uuid import uuid4
 
 from flask_restful import Resource
 from flask import request
