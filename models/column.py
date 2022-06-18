@@ -94,6 +94,7 @@ class Column:
         Args:
             self (Column): the column class object
         """
+        if self.raw_columns is None: return
         columns: dict = self.raw_columns
         sorted_columns: dict = dict(sorted(columns.items(), key=lambda x: int(x[0]), reverse=False))
         self.raw_columns = sorted_columns
