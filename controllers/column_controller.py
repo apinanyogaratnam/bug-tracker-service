@@ -92,6 +92,16 @@ class ColumnController(Resource, Column):
 
             return Response(response_data=serialized_columns, status_code=201)
 
+    # TODO: swap patch with current put method to follow convention
+    def patch(self: 'ColumnController', column_id: int) -> Response:
+        body: dict | list = request.get_json()
+
+        column: Column = self.get_column(column_id)
+
+        serialized_columns = column.update(body).jsonify()
+
+        return Response(response_data=serialized_columns, status_code=200)
+
     def delete(self: 'ColumnController', column_id: int, column_column_id: int | None = None) -> Response:
         if column_column_id is None:
             try:
