@@ -39,9 +39,9 @@ class Column:
             ) RETURNING column_id, raw_columns, created_at;
         '''
 
-        records_to_insert = (
-            self.project_id
-        )
+        records_to_insert = [
+            self.project_id,
+        ]
 
         returned_column: List[tuple] = utility_handler.write_to_postgres_structured(save_column_query, records_to_insert)
 
