@@ -5,7 +5,7 @@ from flask_restful import Resource
 
 from controllers.response import Response
 from controllers.utility import BaseAPI
-from models import Project
+from models import Project, Column
 
 
 class ProjectController(Resource, Project):
@@ -84,7 +84,8 @@ class ProjectController(Resource, Project):
             return Response(response_data={}, error=str(error), status_code=400)
 
         super().__init__(user_id, administrator_id=user_id, co_administrator_ids=[], member_ids=[], name=name, description=description)
-        self.create()
+        project: Project = self.create()
+        Column(project.project_id).create()
         projects: list = self.get_projects(user_id)
 
         # TODO: Send email to user
