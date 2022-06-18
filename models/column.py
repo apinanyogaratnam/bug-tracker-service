@@ -9,7 +9,7 @@ class Column:
     def __init__(
         self: 'Column',
         project_id: int,
-        raw_columns: dict,
+        raw_columns: dict | None = None,
         column_id: int | None = None,
         created_at: str | None = None,
     ) -> None:
@@ -33,23 +33,22 @@ class Column:
 
         save_column_query: str = '''
             INSERT INTO columns (
-                project_id,
-                raw_columns
+                project_id
             ) VALUES (
-                %s, %s
-            ) RETURNING column_id, created_at;
+                %s
+            ) RETURNING column_id, raw_columns, created_at;
         '''
 
         records_to_insert = (
-            self.project_id,
-            json.dumps(self.raw_columns),
+            self.project_id
         )
 
         returned_column: List[tuple] = utility_handler.write_to_postgres_structured(save_column_query, records_to_insert)
 
         if returned_column:
             self.column_id = returned_column[0][0]
-            self.created_at = returned_column[0][1].strftime('%Y-%m-%d %H:%M:%S')
+            self.raw_columns = returned_column[0][1]
+            self.created_at = returned_column[0][2].strftime('%Y-%m-%d %H:%M:%S')
 
         return self
 
