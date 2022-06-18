@@ -93,8 +93,6 @@ class ColumnController(Resource, Column):
             return Response(response_data=serialized_columns, status_code=201)
 
     def delete(self: 'ColumnController', column_id: int, column_column_id: int | None = None) -> Response:
-        body: dict | list = request.get_json()
-
         if column_column_id is None:
             try:
                 column: Column = self.get_column(column_id)
@@ -107,6 +105,7 @@ class ColumnController(Resource, Column):
             serialized_columns = column.update(raw_columns).jsonify()
             return Response(response_data=serialized_columns, status_code=200)
         else:
+            body: dict | list = request.get_json()
             item_index: int = self.validate_remove_item_body(body)
 
             column: Column = self.get_column(column_id)
