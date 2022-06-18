@@ -63,7 +63,7 @@ class ColumnController(Resource, Column):
 
     # TODO: implement delete method for deleting a column and all of its items or delete an item only
     # TODO: add error handling
-    def put(self: 'ColumnController', column_id: int, column_column_id: int | None) -> Response:
+    def put(self: 'ColumnController', column_id: int, column_column_id: int | None = None) -> Response:
         body: dict | list = request.get_json()
 
         if column_column_id is None:
@@ -92,7 +92,7 @@ class ColumnController(Resource, Column):
 
             return Response(response_data=serialized_columns, status_code=201)
 
-    def delete(self: 'ColumnController', column_id: int, column_column_id: int | None) -> Response:
+    def delete(self: 'ColumnController', column_id: int, column_column_id: int | None = None) -> Response:
         body: dict | list = request.get_json()
 
         if column_column_id is None:
