@@ -116,3 +116,4 @@ volumes:
   bug-tracker-service-2: ~
   bug-tracker-service-3: ~
   redis: ~
+  nginx: ~
