@@ -27,6 +27,16 @@ services:
       - './volumes/redis:/bitnami/redis/data'
     restart: always
 
+  nginx:
+    build:
+      context: services/nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - ./volumes/nginx:/etc/nginx/conf.d
+    restart: always
+
   bug-tracker-service:
     platform: linux/amd64
     build: .
