@@ -1,0 +1,12 @@
+verion: '3.8'
+
+services:
+  nginx:
+    build: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+
+  volumes:
+    nginx: ~
