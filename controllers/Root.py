@@ -13,4 +13,6 @@ class Root(Resource):
             "status": "OK",
             "message": "Welcome to the API",
             "process_id": os.getpid(),
+            "host": os.uname(),
+            "host_name": os.uname()[1],
         }
