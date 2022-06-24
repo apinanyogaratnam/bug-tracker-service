@@ -18,6 +18,9 @@ build-linux:
 up:
 	docker-compose up --build --remove-orphans
 
+prod:
+	docker-compose up --build --remove-orphans --scale bug-tracker-service=5 -d
+
 down:
 	docker-compose down
 
