@@ -27,16 +27,6 @@ services:
       - './volumes/redis:/bitnami/redis/data'
     restart: always
 
-  nginx:
-    build:
-      context: services/nginx
-      dockerfile: Dockerfile
-    ports:
-      - 80:80
-    volumes:
-      - ./volumes/nginx:/etc/nginx/conf.d
-    restart: always
-
   bug-tracker-service:
     platform: linux/amd64
     build: .
@@ -55,65 +45,17 @@ services:
       - nginx
     restart: always
 
-  bug-tracker-service-1:
-    platform: linux/amd64
-    build: .
-    environment:
-      - ENVIRONMENT=PRODUCTION
-    env_file:
-      - .env
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - postgres
-      - redis
+      - bug-tracker-service
     ports:
-      - "1111:1111"
-    links:
-      - postgres
-      - redis
-      - nginx
-    restart: always
-
-  bug-tracker-service-2:
-    platform: linux/amd64
-    build: .
-    environment:
-      - ENVIRONMENT=PRODUCTION
-    env_file:
-      - .env
-    depends_on:
-      - postgres
-      - redis
-    ports:
-      - "2222:2222"
-    links:
-      - postgres
-      - redis
-      - nginx
-    restart: always
-
-  bug-tracker-service-3:
-    platform: linux/amd64
-    build: .
-    environment:
-      - ENVIRONMENT=PRODUCTION
-    env_file:
-      - .env
-    depends_on:
-      - postgres
-      - redis
-    ports:
-      - "3333:3333"
-    links:
-      - postgres
-      - redis
-      - nginx
-    restart: always
+      - "4000:4000"
 
 volumes:
   postgres: ~
   bug-tracker-service: ~
-  bug-tracker-service-1: ~
-  bug-tracker-service-2: ~
-  bug-tracker-service-3: ~
   redis: ~
   nginx: ~
