@@ -1,3 +1,5 @@
+import os
+
 from flask_restful import Resource
 
 
@@ -9,5 +11,6 @@ class Root(Resource):
         """Get the status of the API."""
         return {
             "status": "OK",
-            "message": "Welcome to the API"
+            "message": "Welcome to the API",
+            "process_id": os.getpid(),
         }
