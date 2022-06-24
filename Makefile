@@ -21,6 +21,7 @@ up:
 prod:
 	docker-compose up --build --remove-orphans --scale bug-tracker-service=5 -d
 
+# TODO: this doesnt work because of how makefile works
 stop-all:
 	docker stop $(docker ps -a -q)
 
