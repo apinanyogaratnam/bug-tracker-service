@@ -21,6 +21,15 @@ up:
 prod:
 	docker-compose up --build --remove-orphans --scale bug-tracker-service=5 -d
 
+stop-all:
+	docker stop $(docker ps -a -q)
+
+kill-all:
+	docker kill $(docker ps -a -q)
+
+rm-all:
+	docker rm $(docker ps -a -q)
+
 down:
 	docker-compose down
 
